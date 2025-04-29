@@ -239,3 +239,23 @@ html {
   .github-corner:hover .octo-arm { animation: none }
   .github-corner .octo-arm { animation: octocat-wave 560ms ease-in-out }
 }
+
+.bgm-btn{
+  position:absolute;
+  top:7%;
+  right:10%;
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  padding:4px;
+  width:28px;
+  height:28px;
+}
+.bgm-btn svg{
+  fill:#555;
+  position:absolute;
+  top:0; left:0;
+}
+.bgm-btn:hover svg{fill:#64CEAA}
+.bgm-btn .slash line{ pointer-events:none }
+.hidden{display:none}

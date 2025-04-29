@@ -55,6 +55,19 @@ function Runner(outerContainerId, opt_config) {
 
   this.playCount = 0;
 
+  // BGM
+  this.bgmEl = document.getElementById('bgm');
+  this.bgmBtn = document.getElementById('bgm-toggle');
+  this.bgmMuted = false;
+  // 切换静音
+  const slash = document.getElementById('icon-bgm-slash');
+  this.bgmBtn.addEventListener('click', () => {
+    this.bgmMuted = !this.bgmMuted;
+    this.bgmEl.muted = this.bgmMuted;
+    slash.classList.toggle('hidden', !this.bgmMuted);
+    if (!this.bgmMuted && this.playing) this.bgmEl.play().catch(()=>{});
+  });
+
   // Images.
   this.images = {};
   this.imagesLoaded = 0;
@@ -443,6 +456,7 @@ Runner.prototype = {
       this.containerEl.style.webkitAnimation = 'intro .4s ease-out 1 both';
       this.containerEl.style.width = this.dimensions.WIDTH + 'px';
 
+      this.startBGM();
       this.setPlayStatus(true);
       this.activated = true;
     } else if (this.crashed) {
@@ -664,6 +678,7 @@ Runner.prototype = {
             }
             this.loadSounds();
             this.setPlayStatus(true);
+            this.startBGM();
             this.update();
             if (window.errorPageController) {
               errorPageController.trackEasterEgg();
@@ -905,6 +920,7 @@ Runner.prototype = {
    */
   gameOver() {
     this.playSound(Runner.sounds.HIT);
+    this.stopBGM(false);
     vibrate(200);
 
     this.stop();
@@ -938,6 +954,7 @@ Runner.prototype = {
     this.paused = true;
     cancelAnimationFrame(this.raqId);
     this.raqId = 0;
+    this.stopBGM(false);
   },
 
   play() {
@@ -947,6 +964,7 @@ Runner.prototype = {
       this.tRex.update(0, Trex.status.RUNNING);
       this.time = getTimeStamp();
       this.update();
+      if (!this.bgmMuted) this.bgmEl.play().catch(()=>{});
     }
   },
 
@@ -966,6 +984,7 @@ Runner.prototype = {
       this.horizon.reset();
       this.tRex.reset();
       this.playSound(Runner.sounds.BUTTON_PRESS);
+      this.startBGM();
       this.invert(true);
       this.bdayFlashTimer = null;
       this.update();
@@ -1040,6 +1059,20 @@ Runner.prototype = {
     } catch (err) {
       console.warn('Sound blocked:', err);
     }
+  },
+
+  startBGM() {
+    if (!this.bgmEl || this.bgmMuted) return;
+    if (!this.bgmEl.paused) return;
+    this.bgmEl.loop = true;
+    this.bgmEl.currentTime = 0;
+    this.bgmEl.play().catch(()=>{});
+  },
+
+  stopBGM(reset=true) {
+    if (!this.bgmEl) return;
+    this.bgmEl.pause();
+    if (reset) this.bgmEl.currentTime = 0;
   },
 
   /**

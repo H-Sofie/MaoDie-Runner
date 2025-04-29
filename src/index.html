@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="theme-color" content="#fff">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<title>MaoDie Runner Game</title>
+	<title>MaoDie Runner</title>
 	<link rel="stylesheet" href="styles.css">
 	<script>
 		const HIDDEN_CLASS = 'hidden';
@@ -33,7 +33,17 @@
 		<audio id="offline-sound-press" src="sounds/button-press.mp3" preload="auto"></audio>
 		<audio id="offline-sound-hit" src="sounds/hit.mp3" preload="auto"></audio>
 		<audio id="offline-sound-reached" src="sounds/reached.mp3" preload="auto"></audio>
+		<audio id="bgm" src="sounds/bgm.mp3" preload="auto"></audio>
 	</div>
+	<button id="bgm-toggle" class="bgm-btn" aria-label="Toggle BGM">
+		<svg id="icon-bgm-note" viewBox="0 0 24 24" width="28">
+			<path d="M9 3v12.26A4 4 0 1 0 11 19V6h9V3z"/>
+		</svg>
+		<svg id="icon-bgm-slash" viewBox="0 0 24 24" width="28" class="slash hidden">
+			<line x1="2" y1="2" x2="22" y2="22" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+		</svg>
+	</button>
+
 	<script>
 		new Runner('.interstitial-wrapper');
 	</script>
