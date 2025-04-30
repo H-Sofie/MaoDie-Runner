@@ -1003,7 +1003,7 @@ Runner.prototype = {
    * @return {boolean}
    */
   isArcadeMode() {
-    return true;
+    return !IS_MOBILE;
   },
 
   /**
