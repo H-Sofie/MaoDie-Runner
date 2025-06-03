@@ -359,9 +359,14 @@ Runner.prototype = {
     const darkModeMediaQuery =
         window.matchMedia('(prefers-color-scheme: dark)');
     this.isDarkMode = darkModeMediaQuery && darkModeMediaQuery.matches;
-    darkModeMediaQuery.addListener((e) => {
+    const handleDarkModeChange = (e) => {
       this.isDarkMode = e.matches;
-    });
+    };
+    if (darkModeMediaQuery.addEventListener) {
+      darkModeMediaQuery.addEventListener('change', handleDarkModeChange);
+    } else if (darkModeMediaQuery.addListener) {
+      darkModeMediaQuery.addListener(handleDarkModeChange);
+    }
   },
 
   /**
