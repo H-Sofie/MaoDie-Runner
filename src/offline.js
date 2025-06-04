@@ -1776,7 +1776,7 @@ Trex.config = {
   GRAVITY: 0.6,
   HEIGHT: 47,
   HEIGHT_DUCK: 25,
-  INIITAL_JUMP_VELOCITY: -10,
+  INITIAL_JUMP_VELOCITY: -10,
   INTRO_DURATION: 1500,
   MAX_JUMP_HEIGHT: 30,
   MIN_JUMP_HEIGHT: 30,
@@ -1875,7 +1875,7 @@ Trex.prototype = {
    * @param {number} setting
    */
   setJumpVelocity(setting) {
-    this.config.INIITAL_JUMP_VELOCITY = -setting;
+    this.config.INITIAL_JUMP_VELOCITY = -setting;
     this.config.DROP_VELOCITY = -setting / 2;
   },
 
@@ -2013,7 +2013,7 @@ Trex.prototype = {
     if (!this.jumping) {
       this.update(0, Trex.status.JUMPING);
       // Tweak the jump velocity based on the speed.
-      this.jumpVelocity = this.config.INIITAL_JUMP_VELOCITY - (speed / 10);
+      this.jumpVelocity = this.config.INITIAL_JUMP_VELOCITY - (speed / 10);
       this.jumping = true;
       this.reachedMinHeight = false;
       this.speedDrop = false;
